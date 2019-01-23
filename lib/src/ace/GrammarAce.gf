@@ -11,10 +11,10 @@ concrete GrammarAce of Grammar =
   RelativeAce,
   ConjunctionAce,
   PhraseAce,
-  TextX - [Pol,PPos,PNeg],
+  TextX - [CAdv,SC,Pol,PPos,PNeg],
   StructuralAce,
   IdiomAce,
-  TenseX - [Pol,PPos,PNeg]
+  TenseX - [CAdv,SC,Pol,PPos,PNeg]
   ** open ResAce, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

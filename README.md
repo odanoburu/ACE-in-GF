@@ -101,7 +101,7 @@ Testing
 ### Reference implementations of ACE
 
   - The reference ACE parser (APE) can be obtained from <https://github.com/Attempto/APE>. There is a web-based demo at <http://attempto.ifi.uzh.ch/ape/>.
-  - The reference AceWiki grammar can be found at <https://github.com/AceWiki/AceWiki/tree/master/src/ch/uzh/ifi/attempto/acewiki/aceowl/>. There is a web-based demo at <http://attempto.ifi.uzh.ch/acewiki/>.
+  - The reference AceWiki grammar can be found at <https://github.com/AceWiki/AceWiki/tree/master/src/ch/uzh/ifi/attempto/acewiki/aceowl/>. There is a web-based demo at <http://attempto.ifi.uzh.ch/acewiki/>. Documentation is at <http://attempto.ifi.uzh.ch/acewiki-gf/>, <https://github.com/AceWiki/AceWiki/wiki/AceWiki-and-GF>, and <https://github.com/AceWiki/AceWiki/wiki/Installing-AceWiki-with-GF-support>.
 
 ### Other requirements
 

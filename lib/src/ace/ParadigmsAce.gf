@@ -6,10 +6,10 @@ resource ParadigmsAce = ParadigmsEng - [mkA2, mkA2S, mkA2V, prepA2] ** open CatA
 
   -- Physically glue preposition to adjective, i.e. "mad-about" [JJC]
   prepA2 : A -> Prep -> A2 ;
-  prepA2 a p = lin A2 {
+  prepA2 a p = lin A2 a ** {
     s = \\aform => (a.s ! aform) + "-" + p.s ;
-    c2 = [] -- unused
-  };
+    c2 = []
+    } ;
 
   -- Copy from Eng, since they use custom prepA2 above [JJC]
   mkA2 : overload {

@@ -1,13 +1,11 @@
-concrete NumeralAce of Numeral = CatEng [Numeral,Digits] ** open ResEng in {
-
--- TODO: the purpose of this copy-paste is to remove commaIf, do it in a clean way
+concrete NumeralAce of Numeral = CatEng [Numeral,Digits] ** open Prelude, ResEng in {
 
 lincat 
   Digit = {s : DForm => CardOrd => Case => Str} ;
   Sub10 = {s : DForm => CardOrd => Case => Str ; n : Number} ;
   Sub100     = {s : CardOrd => Case => Str ; n : Number} ;
-  Sub1000    = {s : CardOrd => Case => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Case => Str ; n : Number} ;
+  Sub1000    = {s : Bool => CardOrd => Case => Str ; n : Number} ;
+  Sub1000000 = {s : Bool => CardOrd => Case => Str ; n : Number} ;
 
 lin num x = x ;
 lin n2 = let two = mkNum "two"   "twelve"   "twenty" "second" in
@@ -33,16 +31,16 @@ lin pot1to19 d = {s = d.s ! teen} ** {n = Pl} ;
 lin pot0as1 n = {s = n.s ! unit}  ** {n = n.n} ;
 lin pot1 d = {s = d.s ! ten} ** {n = Pl} ;
 lin pot1plus d e = {
-   s = \\o,c => d.s ! ten ! NCard ! Nom ++ "-" ++ e.s ! unit ! o ! c ; n = Pl} ;
-lin pot1as2 n = n ;
-lin pot2 d = {s = \\o,c => d.s ! unit ! NCard ! Nom ++ mkCard o "hundred" ! c}  ** {n = Pl} ;
+   s = \\o,c => d.s ! ten ! NCard ! Nom ++ BIND ++ "-" ++ BIND ++ e.s ! unit ! o ! c ; n = Pl} ;
+lin pot1as2 n = {s = \\_ => n.s; n=n.n} ;
+lin pot2 d = {s = \\_,o,c => d.s ! unit ! NCard ! Nom ++ mkCard o "hundred" ! c}  ** {n = Pl} ;
 lin pot2plus d e = {
-  s = \\o,c => d.s ! unit ! NCard ! Nom ++ "hundred" ++ "and" ++ e.s ! o ! c ; n = Pl} ;
+  s = \\_,o,c => d.s ! unit ! NCard ! Nom ++ "hundred" ++ "and" ++ e.s ! o ! c ; n = Pl} ;
 lin pot2as3 n = n ;
 lin pot3 n = {
-  s = \\o,c => n.s ! NCard ! Nom ++ mkCard o "thousand" ! c ; n = Pl} ;
+  s = \\d,o,c => n.s ! d ! NCard ! Nom ++ mkCard o "thousand" ! c ; n = Pl} ;
 lin pot3plus n m = {
-  s = \\o,c => n.s ! NCard ! Nom ++ "thousand" ++ m.s ! o ! c; n = Pl} ;
+  s = \\d,o,c => n.s ! d ! NCard ! Nom ++ "thousand" ++ m.s ! False ! o ! c; n = Pl} ;
 
 -- numerals as sequences of digits
 
@@ -53,8 +51,8 @@ lin pot3plus n m = {
     IDig d = d ** {tail = T1} ;
 
     IIDig d i = {
-      --s = \\o,c => d.s ! NCard ! Nom ++ commaIf i.tail ++ i.s ! o ! c ;
-      s = \\o,c => d.s ! NCard ! Nom ++ i.s ! o ! c ;
+      -- s = \\o,c => d.s ! NCard ! Nom ++ i.s ! o ! c ;
+      s = \\o,c => d.s ! NCard ! Nom ++ commaIf i.tail ++ i.s ! o ! c ;
       n = Pl ;
       tail = inc i.tail
     } ;
@@ -72,8 +70,8 @@ lin pot3plus n m = {
 
   oper
     commaIf : DTail -> Str = \t -> case t of {
-      T3 => "," ;
-      _ => []
+      T3 => BIND ++ "," ++ BIND ;
+      _  => BIND
       } ;
 
     inc : DTail -> DTail = \t -> case t of {

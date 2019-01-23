@@ -1,5 +1,5 @@
 instance OperAce of Oper =
-  ParadigmsEng - [mkA2, mkA2S, mkA2V, prepA2] ** open SyntaxAce, CatAce, ResAce in {
+  ParadigmsEng - [mkA2, mkA2S, mkA2V, prepA2] ** open SyntaxAce, CatAce, ResAce, Prelude in {
 
   param AcePnType = defsg | defpl ;
 
@@ -50,7 +50,7 @@ instance OperAce of Oper =
   -- Glue preposition to adjective, i.e. "mad_about"
   -- TODO: the same functionality is also in ParadigmsAce, clean this up
   ace_prepA2 : A -> Prep -> A2 ;
-  ace_prepA2 a p = lin A2 {
+  ace_prepA2 a p = lin A2 a ** {
     s = \\aform => (a.s ! aform) + "_" + p.s ;
     c2 = [] -- unused
   };
@@ -58,6 +58,7 @@ instance OperAce of Oper =
   ace_A2 : Str -> A2 ;
   ace_A2 str = lin A2 {
     s = \\aform => str ;
+    isPre = False ;
     c2 = [] -- unused
   };
 
